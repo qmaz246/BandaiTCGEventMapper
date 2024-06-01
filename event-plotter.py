@@ -67,12 +67,6 @@ def cleanup(address):
     
     
     return address
-    
-    
-
-def removeAPIKey(mapName):
-    with open(mapName+".html") as file:
-        print("not yet")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -89,7 +83,6 @@ def main():
     print("%i Shops Found"%(len(shops)))
     plotMap(gmap, shops, args)
     
-    #removeAPIKey(args.mapName)
 
 if __name__=="__main__":
     main()
