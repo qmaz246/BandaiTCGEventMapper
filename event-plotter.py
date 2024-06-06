@@ -74,12 +74,12 @@ def plotMap(gmap, shops, args):
         for shop in shops:
             try:
                 loc = gmplot.GoogleMapPlotter.geocode(cleanup(shops[shop][0]), apikey=args.apikey)
-                gmap.marker(loc[0], loc[1], color='cornflowerblue', title=shop, info_window=shops[shop][1])
+                gmap.marker(loc[0], loc[1], color='cornflowerblue', title=shop, info_window=genInfo(shop,shops[shop]))
             except:
                 # try to combine store name and address
                 try:
                     loc = gmplot.GoogleMapPlotter.geocode(shop+" "+cleanup(shops[shop][0]), apikey=args.apikey)
-                    gmap.marker(loc[0], loc[1], color='cornflowerblue', title=shop, info_window=shops[shop][1])
+                    gmap.marker(loc[0], loc[1], color='cornflowerblue', title=shop, info_window=genInfo(shop,shops[shop]))
                 except Exception as e:
                     # oh well
                     print("Issue finding %s: %s: %s"%(shop,cleanup(shops[shop]),e))
@@ -96,6 +96,12 @@ def cleanup(address):
     
     
     return address
+
+def genInfo(shop, contents):
+    shop = "<h3>%s</h3>"%(shop)
+    address = "<p>%s</p>"%(contents[0])
+    dateTime = "<p>%s</p>"%(contents[1])
+    return shop+address+dateTime
 
 def main():
     parser = argparse.ArgumentParser()
